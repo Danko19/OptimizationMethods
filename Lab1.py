@@ -2,6 +2,7 @@ from SvennMethod import FindUnimodalSegment
 import DichotomyMethod
 import DivisionMethod
 import GoldenRatioMathod
+import FibonacciMethod
 
 func = lambda x: x ** 2 + 1
 (a, b) = FindUnimodalSegment(-5, 0.1, func)
@@ -15,4 +16,7 @@ print(solve)
 print(x, y)
 
 (x, y) = GoldenRatioMathod.FindMinimum(-5, 1, 0.1, func)
+print(x, y)
+
+(x, y) = FibonacciMethod.FindMinimum(-5, 1, 0.1, func)
 print(x, y)
