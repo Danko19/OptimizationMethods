@@ -1,6 +1,7 @@
 from typing import Callable 
 
 def FindUnimodalSegment(x0: float, t: float, func: Callable[[float], float]) -> (float, float):
+    print("Called FindUnimodalSegment by SvennMethod with params x0={}, t={}".format(x0, t))
     if t <= 0:
         raise Exception("Parameter 't' must be positive but was: {}".format(t))
     fx0 = func(x0)
