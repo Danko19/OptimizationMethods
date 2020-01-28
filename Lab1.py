@@ -6,17 +6,22 @@ import FibonacciMethod
 
 func = lambda x: x ** 2 + 1
 (a, b) = FindUnimodalSegment(-5, 0.1, func)
-print(a)
-print(b)
+print("a={}, b={}".format(a, b))
+print()
 
-(x, y) = DichotomyMethod.FindMinimum(-5, 1, 0.01, 0.1, func)
-print(x, y)
-
-(x, y) = DivisionMethod.FindMinimum(-5, 1, 0.1, func)
-print(x, y)
-
-(x, y) = GoldenRatioMathod.FindMinimum(-5, 1, 0.1, func)
-print(x, y)
-
-(x, y) = FibonacciMethod.FindMinimum(-5, 1, 0.1, func)
-print(x, y)
+for e in [0.1, 0.01]:        
+    (x, y) = DichotomyMethod.FindMinimum(a, b, 0.001, e, func)
+    print("x={}, y={}".format(x, y))
+    print()
+    
+    (x, y) = DivisionMethod.FindMinimum(a, b, e, func)
+    print("x={}, y={}".format(x, y))
+    print()
+    
+    (x, y) = GoldenRatioMathod.FindMinimum(a, b, e, func)
+    print("x={}, y={}".format(x, y))
+    print()
+    
+    (x, y) = FibonacciMethod.FindMinimum(a, b, e, func)
+    print("x={}, y={}".format(x, y))
+    print()
