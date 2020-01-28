@@ -1,13 +1,19 @@
 from typing import Callable
 
-def FindMinimum(a: float, b: float, d: float, e: float, func: Callable[[float], float]) -> float:
+def FindMinimum(a: float, b: float, d: float, e: float, func: Callable[[float], float]) -> (float, float):
     while True:
         c = (a + b) / 2
         x1 = c - d
         x2 = c + d
-        if func(x1) > func(x2):
+        fx1 = func(x1)
+        fx2 = func(x2)
+        if fx1 > fx2:
             a = x1
+            fxmin = fx1
+            xmin = x1
         else: 
             b = x2
+            fxmin = fx2
+            xmin = x2
         if abs(b - a) <= e:
-            return (a + b) /2
+            return (xmin, fxmin)

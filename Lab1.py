@@ -9,8 +9,8 @@ func = lambda x: x ** 2 + 1
 print(a)
 print(b)
 
-solve = DichotomyMethod.FindMinimum(-5, 1, 0.01, 0.1, func)
-print(solve)
+(x, y) = DichotomyMethod.FindMinimum(-5, 1, 0.01, 0.1, func)
+print(x, y)
 
 (x, y) = DivisionMethod.FindMinimum(-5, 1, 0.1, func)
 print(x, y)
