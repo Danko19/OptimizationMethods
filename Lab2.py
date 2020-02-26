@@ -23,8 +23,8 @@ print(result)
 result = HookeJeevesMethod.FindMinimum(function, [0, 0], 0.1, 0.01)
 print(result)
 
-result = GradientDescentMethod.FindMinimum(function, gradient, [0, 0], 0.01)
+result = GradientDescentMethod.FindMinimum(function, gradient, [0, 0], 0.01, 0.01, 0.01)
 print(result)
 
-result = NewtonRaphsonMethod.FindMinimum(function, gradient, reversedMatrix, [0, 0], 0.01)
+result = NewtonRaphsonMethod.FindMinimum(function, gradient, reversedMatrix, [0, 0], 0.01, 0.01, 0.01)
 print(result)

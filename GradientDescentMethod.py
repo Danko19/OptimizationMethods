@@ -5,16 +5,20 @@ import GoldenRatioMathod
 import SvennMethod
 import math
 
-def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[float]], List[float]], startPoint: List[float], e: float) -> List[Tuple[List[float], float]]:
+def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[float]], List[float]], startPoint: List[float], ed: float, ex: float, ef: float) -> List[Tuple[List[float], float]]:
     trace = [(startPoint.copy(), func(startPoint))]
     while True:
-        (previousPoint, _) = trace[-1]
+        (previousPoint, previousValue) = trace[-1]
         direction = gradient(previousPoint)
-        if GetLength(direction) <= e:
-            return trace
+        if GetLength(direction) <= ed:
+            if len(trace) == 1:
+                return trace
+            (oldPoint, oldValue) = trace[-2]
+            if GetDistance(oldPoint, previousPoint) <= ex and abs(oldValue - previousValue) <= ef:
+                return trace
         singleVarFunc = GetSignleVariableFunc(func, previousPoint, direction)
         (a, b) = SvennMethod.FindUnimodalSegment(0, 0.01, singleVarFunc)
-        (l, newValue) = GoldenRatioMathod.FindMinimum(a, b, e / 10, singleVarFunc)
+        (l, newValue) = GoldenRatioMathod.FindMinimum(a, b, ed / 10, singleVarFunc)
         newPoint = GetSum(previousPoint, GetMultiply(direction, l))
         trace.append((newPoint, newValue))
 
@@ -47,5 +51,16 @@ def GetLength(vector: List[float]) -> float:
     distance = 0
     while i < len(vector):
         distance += vector[i] ** 2
+        i += 1
+    return math.sqrt(distance)
+    
+
+def GetDistance(firstVector: List[float], secondVector: List[float]) -> float:
+    if len(firstVector) != len(secondVector):
+        raise Exception("Vectors have different number of elements. First={}, second={}".format(len(firstVector), len(secondVector)))
+    i = 0
+    distance = 0
+    while i < len(firstVector):
+        distance += (firstVector[i] - secondVector[i]) ** 2
         i += 1
     return math.sqrt(distance)
