@@ -19,7 +19,7 @@ def reversedMatrix(x):
 
 results = []
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "DirectcoordinateDescentMethod"))
-results.append((HookeJeevesMethod.FindMinimum(function, [0, 0], 0.1, 0.01), "HookeJeevesMethod"))
+results.append((HookeJeevesMethod.FindMinimum(function, [0, 0], 0.1, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "HookeJeevesMethod"))
 results.append((GradientDescentMethod.FindMinimum(function, gradient, [0, 0], 0.01, 0.01, 0.01), "GradientDescentMethod"))
 results.append((NewtonRaphsonMethod.FindMinimum(function, gradient, reversedMatrix, [0, 0], 0.01, 0.01, 0.01), "NewtonRaphsonMethod"))
 

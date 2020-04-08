@@ -5,7 +5,7 @@ import GoldenRatioMathod
 import SvennMethod
 import math
 
-def FindMinimum(func: Callable[[List[float]], float], startPoint: List[float], delta: float, e: float, m: float = 0.5) -> List[Tuple[List[float], float]]:
+def FindMinimum(func: Callable[[List[float]], float], startPoint: List[float], delta: float, e: float, findMinFunc, m: float = 0.5) -> List[Tuple[List[float], float]]:
     steps = len(startPoint)
     trace = [(startPoint.copy(), func(startPoint))]
     while True:
@@ -26,8 +26,7 @@ def FindMinimum(func: Callable[[List[float]], float], startPoint: List[float], d
             delta *= m
             continue
         singleVarFunc = GetSignleVariableFunc(func, previousPoint, direction)
-        (a, b) = SvennMethod.FindUnimodalSegment(0, 0.01, singleVarFunc)
-        (l, newValue) = GoldenRatioMathod.FindMinimum(a, b, e / 10, singleVarFunc)
+        (l, newValue) = findMinFunc(singleVarFunc, 0)
         newPoint = GetSum(previousPoint, GetMultiply(direction, l))
         trace.append((newPoint, newValue))
 
