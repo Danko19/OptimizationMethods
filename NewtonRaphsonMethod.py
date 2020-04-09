@@ -47,6 +47,7 @@ def GetMatrixMultiply(matrix: List[List[float]], vector: List[float]) -> List[fl
         sum = 0
         for j in range(len(matrix[0])):
             sum += matrix[i][j] * vector[j]
+        result[i] = sum
     return result
 
 
