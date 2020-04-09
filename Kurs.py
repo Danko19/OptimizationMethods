@@ -3,6 +3,7 @@ import OneDimensionalOptimizationsHelper
 import HookeJeevesMethod
 import NelderMeadMethod
 import GradientDescentMethod
+import FletcherReevesMethod
 
 
 def function(X):
@@ -21,6 +22,7 @@ results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01
 NelderMeadMethod.FindMinimum(function, [0, 0], 0.1, 0.1)
 results.append((HookeJeevesMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetFibonacciMethodFunc(0.01)), "HookeJeevesWithFibonacciMethod"))
 results.append((GradientDescentMethod.FindMinimum(function, gradient, [0, 0], 0.01, 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "GradientDescentWithGoldenRationMethod"))
+results.append((FletcherReevesMethod.FindMinimum(function, gradient, [0, 0], 0.01, 0.01, 0.01, [[1, 0], [0, 0.4]]), "FletcherReevesMethod"))
 
 print()
 for (result, methodName) in results:
