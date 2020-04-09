@@ -2,6 +2,7 @@ import DirectcoordinateDescentMethod
 import OneDimensionalOptimizationsHelper
 import HookeJeevesMethod
 import NelderMeadMethod
+import GradientDescentMethod
 
 
 def function(X):
@@ -9,13 +10,17 @@ def function(X):
     y = X[1]
     return ((x - 3) ** 2) / 2  + ((y - 2) ** 2) / 4
 
+def gradient(X):
+    x = X[0]
+    y = X[1]
+    return [x - 3, y / 2 - 1]
+
 results = []
-results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "DirectcoordinateDescentWithGoldenrationMethod"))
+results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "DirectcoordinateDescentWithGoldenRationMethod"))
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetPowellsMethodFunc(0.01, 0.01)), "DirectcoordinateDescentPowellsMethod"))
-
 NelderMeadMethod.FindMinimum(function, [0, 0], 0.1, 0.1)
-
 results.append((HookeJeevesMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetFibonacciMethodFunc(0.01)), "HookeJeevesWithFibonacciMethod"))
+results.append((GradientDescentMethod.FindMinimum(function, gradient, [0, 0], 0.01, 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "GradientDescentWithGoldenRationMethod"))
 
 print()
 for (result, methodName) in results:
