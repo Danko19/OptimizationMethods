@@ -1,6 +1,7 @@
 import DirectcoordinateDescentMethod
 import OneDimensionalOptimizationsHelper
 import HookeJeevesMethod
+import NelderMeadMethod
 
 
 def function(X):
@@ -12,7 +13,9 @@ results = []
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "DirectcoordinateDescentWithGoldenrationMethod"))
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetPowellsMethodFunc(0.01, 0.01)), "DirectcoordinateDescentPowellsMethod"))
 
-results.append((HookeJeevesMethod.FindMinimum(function, [0, 0], 0.1, 0.01, OneDimensionalOptimizationsHelper.GetFibonacciMethodFunc(0.01)), "HookeJeevesWithFibonacciMethod"))
+NelderMeadMethod.FindMinimum(function, [0, 0], 0.1, 0.1)
+
+results.append((HookeJeevesMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetFibonacciMethodFunc(0.01)), "HookeJeevesWithFibonacciMethod"))
 
 print()
 for (result, methodName) in results:
