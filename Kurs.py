@@ -19,7 +19,7 @@ def gradient(X):
 results = []
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "DirectcoordinateDescentWithGoldenRationMethod"))
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetPowellsMethodFunc(0.01, 0.01)), "DirectcoordinateDescentPowellsMethod"))
-NelderMeadMethod.FindMinimum(function, [0, 0], 0.1, 0.1)
+results.append((NelderMeadMethod.FindMinimum(function, [0, 0], 0.1, 0.1), "NelderMeadMethod"))
 results.append((HookeJeevesMethod.FindMinimum(function, [0, 0], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetFibonacciMethodFunc(0.01)), "HookeJeevesWithFibonacciMethod"))
 results.append((GradientDescentMethod.FindMinimum(function, gradient, [0, 0], 0.01, 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "GradientDescentWithGoldenRationMethod"))
 results.append((FletcherReevesMethod.FindMinimum(function, gradient, [0, 0], 0.01, 0.01, 0.01, [[1, 0], [0, 0.4]]), "FletcherReevesMethod"))
