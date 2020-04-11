@@ -17,7 +17,7 @@ def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[f
             d = GetSum(GetMultiply(gradient(currentPoint), -1), GetMultiply(ds[-1], b))
             ds.append(d)
         if GetLength(d) <= ed:
-            if len(trace) == 1:
+            if len(trace) == 1 or GetLength(d) == 0:
                 return trace
             (oldPoint, oldValue) = trace[-2]
             if GetDistance(oldPoint, currentPoint) <= ex and abs(oldValue - currentValue) <= ef:

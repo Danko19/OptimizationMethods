@@ -7,6 +7,9 @@ import FletcherReevesMethod
 import matplotlib.pyplot as plt
 import numpy as np
 
+save = True
+show = False
+
 def function(X):
     x = X[0]
     y = X[1]
@@ -19,11 +22,11 @@ def gradient(X):
 
 results = []
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "Метод прямого покоординатного спуска (золотое сечение)"))
-#results.append((DirectcoordinateDescentMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetPowellsMethodFunc(0.01, 0.01)), "Метод прямого покоординатного спуска (метод Пауэлла)"))
+results.append((DirectcoordinateDescentMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetPowellsMethodFunc(0.01, 0.01)), "Метод прямого покоординатного спуска (метод Пауэлла)"))
 results.append((NelderMeadMethod.FindMinimum(function, [-2, 8], 0.1, 0.1), "Метод Нелдера-Мида"))
 results.append((HookeJeevesMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetFibonacciMethodFunc(0.01)), "Метод Хука-Дживса (метод Фибоначчи)"))
 results.append((GradientDescentMethod.FindMinimum(function, gradient, [-2, 8], 0.01, 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "Метод наискорейшего градиентного спуска"))
-#results.append((FletcherReevesMethod.FindMinimum(function, gradient, [-2, 8], 0.01, 0.01, 0.01, [[1, 0], [0, 0.5]]), "Метод Флетчера-Ривса"))
+results.append((FletcherReevesMethod.FindMinimum(function, gradient, [-2, 8], 0.01, 0.01, 0.01, [[1, 0], [0, 0.5]]), "Метод Флетчера-Ривса"))
 
 print()
 for (result, methodName) in results:
@@ -84,8 +87,10 @@ for (result, methodName) in results:
             x = [step[0][0][0], step[0][1][0], step[0][2][0], step[0][0][0]]
             y = [step[0][0][1], step[0][1][1], step[0][2][1], step[0][0][1]]
             plt.plot(x,y, '-o', color='#302ab5')
-            plt.savefig(methodName + "_" + i + ".png")
-            plt.show()
+            if save:
+                plt.savefig("D:\\screens\\" + methodName + "_" + str(i) + ".png")
+            if show:
+                plt.show()
             prepareGraph(methodName)
             i += 1
     else:
@@ -95,5 +100,7 @@ for (result, methodName) in results:
             x.append(step[0][0])
             y.append(step[0][1])
         plt.plot(x,y, '-o', color='#302ab5')
-    plt.savefig(methodName + ".png")
-    plt.show()
+        if save:
+            plt.savefig("D:\\screens\\" + methodName + ".png")
+        if show:
+            plt.show()

@@ -14,7 +14,7 @@ def FindMinimum(x0, e1, e2, delta, func):
         x_min = [x1, x2, x3][fs.index(f_min)]
         x_avg = 0.5 * (f1 * (x2 ** 2 - x3 ** 2) + f2 * (x3 ** 2 - x1 ** 2) + f3 * (x1 ** 2 - x2 ** 2)) / (f1 * (x2 - x3) + f2 * (x3 - x1) + f3 * (x1 - x2))
         f_avg = func(x_avg)
-        if abs((f_min - f_avg) / f_avg) <= e1 and abs((x_min - x_avg) / x_avg) <= e2:
+        if abs(f_min - f_avg) <= e1 and abs(x_min - x_avg) <= e2:
             return (x_min, f_min)
         if x1 <= x2 <= x3 and x_avg >= x2 and x_avg <= x3:
             x1 = x2
