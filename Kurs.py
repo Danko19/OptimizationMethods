@@ -20,6 +20,7 @@ def gradient(X):
     y = X[1]
     return [x - 3, y / 2 - 1]
 
+# получение результатов оптимизации функции разными методами
 results = []
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "Метод прямого покоординатного спуска (золотое сечение)"))
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetPowellsMethodFunc(0.01, 0.01)), "Метод прямого покоординатного спуска (метод Пауэлла)"))
@@ -29,6 +30,7 @@ results.append((GradientDescentMethod.FindMinimum(function, gradient, [-2, 8], 0
 results.append((FletcherReevesMethod.FindMinimum(function, gradient, [-2, 8], 0.01, 0.01, 0.01, [[1, 0], [0, 0.5]]), "Метод Флетчера-Ривса"))
 
 print()
+# вывод пошагового результата каждого метода на консоль
 for (result, methodName) in results:
     print()
     print("{} results:".format(methodName))
@@ -42,26 +44,22 @@ for (result, methodName) in results:
             dimNumber += 1
         print("  f(x)={}".format(step[1]))
 
+# подготовка графика
 def prepareGraph(methodName):
+    # координатная сетка
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
-
-    # Major ticks every 20, minor ticks every 5
     major_ticks = np.arange(x_min, x_max + 1, 5)
     minor_ticks = np.arange(x_min, x_max + 1, 1)
-
     ax.set_xticks(major_ticks)
     ax.set_xticks(minor_ticks, minor=True)
     ax.set_yticks(major_ticks)
     ax.set_yticks(minor_ticks, minor=True)
-
-    # And a corresponding grid
     ax.grid(which='both')
-
-    # Or if you want different settings for the grids:
     ax.grid(which='minor', alpha=0.2)
     ax.grid(which='major', alpha=0.5)
 
+    # линии уровня
     delta = 0.025
     x = np.arange(x_min, x_max, delta)
     y = np.arange(y_min, y_max, delta)
@@ -73,14 +71,10 @@ def prepareGraph(methodName):
     plt.ylim(y_min, y_max)
     plt.title(methodName)
 
+# создание графиков для каждого метода
 for (result, methodName) in results:
-    x_min = -10
-    x_max = 10
-    y_min = -10
-    y_max = 10
-    
+    x_min = -10; x_max = 10; y_min = -10; y_max = 10    
     prepareGraph(methodName)
-
     if methodName == "Метод Нелдера-Мида":
         i = 0
         for step in result:

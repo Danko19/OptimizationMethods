@@ -1,6 +1,10 @@
 from typing import Callable
 import math
 
+# находим минимум функции одной переменной, на вход подаём:
+# a, b - границы отрезка унимодальности
+# e - точность для окончания итераций
+# func - целевая функция одной переменной 
 def FindMinimum(a: float, b: float, e: float, func: Callable[[float], float]) -> (float,float):
     print("Called FindMinimum by GoldenRatioMathod with params a={}, b={}, e={}".format(a, b, e))
     t = (math.sqrt(5) - 1) / 2

@@ -1,5 +1,14 @@
 import math
 
+# находим минимум функции нескольких переменных, на вход подаём:
+# func - исходная функция
+# X0 - начальная точка
+# el - точность для максимальной длины ребра для окончания итераций
+# ef - точность для СКО значенией функции для окончания итераций
+# alfa - коэффициент растяжения 
+# beta - коэффициент сжатия
+# beta - коэффициент редуцирования
+# l - начальная длина ребра
 def FindMinimum(func, X0, el, ef, alfa = 3, beta = 0.5, gamma = 0.5, l = 10):
     n = len(X0)
     r1 = l * (math.sqrt(n + 1) + n - 1) / (n * math.sqrt(2))
@@ -61,6 +70,7 @@ def FindMinimum(func, X0, el, ef, alfa = 3, beta = 0.5, gamma = 0.5, l = 10):
         if getSKO(F) < ef and getMaxLength(X) < el:
             return trace
 
+# находим координаты точки x_n2
 def get_x_n2(X, i_h):
     n = len(X) - 1
     x_n2 = [0] * n 
@@ -72,27 +82,28 @@ def get_x_n2(X, i_h):
         x_n2[i] /= n
     return x_n2
 
-
+# находим разность двух векторов (новый вектор)
 def minus(X1, X2):
     res = [0] * len(X1)
     for i in range(len(X1)):
         res[i] = X1[i] - X2[i]
     return res
 
-
+# находим cумму двух векторов (новый вектор)
 def plus(X1, X2):
     res = [0] * len(X1)
     for i in range(len(X1)):
         res[i] = X1[i] + X2[i]
     return res
 
-
+# находим произведение вектора на число (новый вектор)
 def multiply(X1, m):
     res = [0] * len(X1)
     for i in range(len(X1)):
         res[i] = X1[i] * m
     return res
 
+# находим СКО значений функции
 def getSKO(F):
     f_avg = getAVG(F)
     D = 0
@@ -100,12 +111,14 @@ def getSKO(F):
         D += (F[i] - f_avg) ** 2
     return D / len(F)
 
+# находим среднее значение функции
 def getAVG(F):    
     f_avg = 0
     for i in range(len(F)):
         f_avg += F[i]
     return f_avg / len(F)
 
+# находим максимальную длину ребра
 def getMaxLength(X):
     maximum = -math.inf
     for i in range(len(X)):
@@ -115,9 +128,9 @@ def getMaxLength(X):
                 maximum = dist
     return maximum
 
+# находим расстояние между двумя точками
 def getDistance(X1, X2):
     dist = 0
     for i in range(len(X1)):
         dist += (X1[i] - X2[i]) ** 2
     return math.sqrt(dist)
-

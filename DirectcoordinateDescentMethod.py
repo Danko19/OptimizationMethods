@@ -1,10 +1,13 @@
 from typing import List
 from typing import Tuple
 from typing import Callable
-import GoldenRatioMathod
-import SvennMethod
 import math
 
+# находим минимум функции нескольких переменных, на вход подаём:
+# func - исходная функция
+# startPoint - начальная точка
+# e1, e2 - точность значений функции и точки для окончания итераций
+# findMinFunc - функция одномерной оптимизации 
 def FindMinimum(func: Callable[[List[float]], float], startPoint: List[float], e1: float, e2: float, findMinFunc) -> List[Tuple[List[float], float]]:
     steps = len(startPoint)
     position = startPoint.copy()
@@ -22,7 +25,7 @@ def FindMinimum(func: Callable[[List[float]], float], startPoint: List[float], e
         if GetDistance(position, previousPosition) <= e1 and abs(value - previousValue) <= e2:
             return trace
 
-
+# фиксируем начальную точку и направление и создаём функцию одной переменной
 def GetSignleVariableFunc(func: Callable[[List[float]], float], values: List[float], step: int) -> Callable[[float], float]:
     copy = values.copy()
     def inner(x: float) -> float:
@@ -30,6 +33,7 @@ def GetSignleVariableFunc(func: Callable[[List[float]], float], values: List[flo
         return func(copy)
     return inner
 
+# ищем расстояние между точками
 def GetDistance(firstVector: List[float], secondVector: List[float]) -> float:
     if len(firstVector) != len(secondVector):
         raise Exception("Vectors have different number of elements. First={}, second={}".format(len(firstVector), len(secondVector)))

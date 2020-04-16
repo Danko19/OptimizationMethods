@@ -1,10 +1,14 @@
 from typing import List
 from typing import Tuple
 from typing import Callable
-import GoldenRatioMathod
-import SvennMethod
 import math
 
+# находим минимум функции нескольких переменных, на вход подаём:
+# func - исходная функция
+# gradient - функция градиента исходной функции 
+# startPoint - начальная точка
+# ed, ex, ef - точность значений градиента, точки и фнукции для окончания итераций
+# findMinFunc - функция одномерной оптимизации
 def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[float]], List[float]], startPoint: List[float], ed: float, ex: float, ef: float, findMinFunc) -> List[Tuple[List[float], float]]:
     trace = [(startPoint.copy(), func(startPoint))]
     while True:
@@ -21,7 +25,7 @@ def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[f
         newPoint = GetSum(previousPoint, GetMultiply(direction, l))
         trace.append((newPoint, newValue))
 
-
+# находим сумму двух векторов (новый вектор)
 def GetSum(firstVector: List[float], secondVector: List[float]) -> List[float]:    
     if len(firstVector) != len(secondVector):
         raise Exception("Vectors have different number of elements. First={}, second={}".format(len(firstVector), len(secondVector)))
@@ -30,21 +34,21 @@ def GetSum(firstVector: List[float], secondVector: List[float]) -> List[float]:
         result[i] = firstVector[i] + secondVector[i]
     return result
 
-
+# находим произведение вектора на число (новый вектор)
 def GetMultiply(vector: List[float], multiplier: float) -> List[float]:   
     result = vector.copy()
     for i in range(len(vector)):
         result[i] = vector[i] * multiplier
     return result
 
-
+# фиксируем начальную точку и направление и создаём функцию одной переменной
 def GetSignleVariableFunc(func: Callable[[List[float]], float], previousPoint: List[float], direction: List[float]) -> Callable[[float], float]:
     def inner(l: float) -> float:
         newPoint = GetSum(previousPoint, GetMultiply(direction, l))
         return func(newPoint)
     return inner
 
-
+# находим длину вектора (число)
 def GetLength(vector: List[float]) -> float:
     i = 0
     distance = 0
@@ -52,8 +56,8 @@ def GetLength(vector: List[float]) -> float:
         distance += vector[i] ** 2
         i += 1
     return math.sqrt(distance)
-    
 
+# находим расстояние между точками
 def GetDistance(firstVector: List[float], secondVector: List[float]) -> float:
     if len(firstVector) != len(secondVector):
         raise Exception("Vectors have different number of elements. First={}, second={}".format(len(firstVector), len(secondVector)))

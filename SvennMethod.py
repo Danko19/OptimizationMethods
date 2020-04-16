@@ -1,5 +1,9 @@
 from typing import Callable 
 
+# находим отрезок унимодальности, на вход подаём:
+# x0 - начальная точка
+# t - длина шага
+# func - целевая функция одной переменной
 def FindUnimodalSegment(x0: float, t: float, func: Callable[[float], float]) -> (float, float):
     print("Called FindUnimodalSegment by SvennMethod with params x0={}, t={}".format(x0, t))
     if t <= 0:

@@ -3,6 +3,12 @@ from typing import Tuple
 from typing import Callable
 import math
 
+# находим минимум функции нескольких переменных, на вход подаём:
+# func - исходная функция
+# gradient - функция градиента исходной функции 
+# startPoint - начальная точка
+# ed, ex, ef - точность значений градиента, точки и фнукции для окончания итераций
+# H - матрица Гессе 
 def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[float]], List[float]], startPoint: List[float], ed: float, ex: float, ef: float, H) -> List[Tuple[List[float], float]]:
     trace = [(startPoint.copy(), func(startPoint))]
     ds = []
@@ -27,7 +33,7 @@ def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[f
         newValue = func(newPoint)
         trace.append((newPoint, newValue))
 
-
+# находим сумму двух векторов (новый вектор)
 def GetSum(firstVector: List[float], secondVector: List[float]) -> List[float]:    
     if len(firstVector) != len(secondVector):
         raise Exception("Vectors have different number of elements. First={}, second={}".format(len(firstVector), len(secondVector)))
@@ -36,14 +42,14 @@ def GetSum(firstVector: List[float], secondVector: List[float]) -> List[float]:
         result[i] = firstVector[i] + secondVector[i]
     return result
 
-
+# находим произведение вектора на число (новый вектор)
 def GetMultiply(vector: List[float], multiplier: float) -> List[float]:   
     result = vector.copy()
     for i in range(len(vector)):
         result[i] = vector[i] * multiplier
     return result
 
-
+# находим длину вектора (число)
 def GetLength(vector: List[float]) -> float:
     i = 0
     distance = 0
@@ -52,7 +58,7 @@ def GetLength(vector: List[float]) -> float:
         i += 1
     return math.sqrt(distance)
     
-
+# находим расстояние между точками
 def GetDistance(firstVector: List[float], secondVector: List[float]) -> float:
     if len(firstVector) != len(secondVector):
         raise Exception("Vectors have different number of elements. First={}, second={}".format(len(firstVector), len(secondVector)))
@@ -63,12 +69,14 @@ def GetDistance(firstVector: List[float], secondVector: List[float]) -> float:
         i += 1
     return math.sqrt(distance)
 
+# находим скалярное произведение векторов
 def GetScalar(firstVector: List[float], secondVector: List[float]) -> float:
     result = 0
     for i in range(len(firstVector)):
         result += firstVector[i] * secondVector[i]
     return result
 
+# находим произведение матрицы на вектор
 def GetMatrixMultiply(matrix: List[List[float]], vector: List[float]) -> List[float]:   
     result = vector.copy()
     for i in range(len(vector)):

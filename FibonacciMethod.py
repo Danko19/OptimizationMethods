@@ -1,7 +1,10 @@
 from typing import Callable
-from queue import Queue
 import math
 
+# находим минимум функции одной переменной, на вход подаём:
+# a, b - границы отрезка унимодальности
+# e - точность для окончания итераций
+# func - целевая функция одной переменной 
 def FindMinimum(a: float, b: float, e: float, func: Callable[[float], float]) -> (float,float):
     print("Called FindMinimum by FibonacciMethod with params a={}, b={}, e={}".format(a, b, e))
     d = b - a
@@ -42,6 +45,7 @@ def FindMinimum(a: float, b: float, e: float, func: Callable[[float], float]) ->
             print("Iterations count={}, measurements count={}".format(iterations, measurements))
             return (xmin, fmin)
 
+# ищем первые l чисел Фибоначчи
 def TakeThreeFibonacciNumbersWhileLessThan(l: float):
     fubonacci = [1, 1, 2]
     while fubonacci[-1] < l:
