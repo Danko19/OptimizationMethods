@@ -17,12 +17,15 @@ def FindMinimum(func: Callable[[List[float]], float], startPoint: List[float], d
         (previousPoint, previousValue) = trace[-1]
         newPoint = previousPoint.copy()
         for step in range(steps):
-            previousValue = func(newPoint)
             newPoint[step] += delta
-            if func(newPoint) < previousValue:
+            newValue = func(newPoint)
+            if newValue < previousValue:
+                previousValue = newValue
                 continue
             newPoint[step] -= delta * 2
-            if func(newPoint) < previousValue:
+            newValue = func(newPoint)
+            if newValue < previousValue:
+                previousValue = newValue
                 continue
             newPoint[step] += delta
         direction = GetDifference(newPoint, previousPoint)
