@@ -8,8 +8,11 @@ import math
 # gradient - функция градиента исходной функции 
 # startPoint - начальная точка
 # ed, ex, ef - точность значений градиента, точки и фнукции для окончания итераций
-# findMinFunc - функция одномерной оптимизации
-def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[float]], List[float]], startPoint: List[float], ed: float, ex: float, ef: float, findMinFunc) -> List[Tuple[List[float], float]]:
+# или findMinFunc - функция одномерной оптимизации для поиска длины шага 
+# или H - матрица Гессе, для расчётной формулы для поиска шага
+def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[float]], List[float]], startPoint: List[float], ed: float, ex: float, ef: float, findMinFunc = None, H = None) -> List[Tuple[List[float], float]]:
+    if findMinFunc is None and H is None:
+        raise Exception("One of parameters 'findMinFunc' or 'H' should be defined")
     trace = [(startPoint.copy(), func(startPoint))]
     while True:
         (previousPoint, previousValue) = trace[-1]
@@ -21,8 +24,12 @@ def FindMinimum(func: Callable[[List[float]], float], gradient: Callable[[List[f
             if GetDistance(oldPoint, previousPoint) <= ex and abs(oldValue - previousValue) <= ef:
                 return trace
         singleVarFunc = GetSignleVariableFunc(func, previousPoint, direction)
-        (l, newValue) = findMinFunc(singleVarFunc, 0)
+        if findMinFunc is not None:
+            (l, _) = findMinFunc(singleVarFunc, 0)
+        else:
+            l = - (GetScalar(direction, direction) / GetScalar(GetMatrixMultiply(H, direction), direction))
         newPoint = GetSum(previousPoint, GetMultiply(direction, l))
+        newValue = func(newPoint)
         trace.append((newPoint, newValue))
 
 # находим сумму двух векторов (новый вектор)
@@ -67,3 +74,20 @@ def GetDistance(firstVector: List[float], secondVector: List[float]) -> float:
         distance += (firstVector[i] - secondVector[i]) ** 2
         i += 1
     return math.sqrt(distance)
+
+# находим скалярное произведение векторов
+def GetScalar(firstVector: List[float], secondVector: List[float]) -> float:
+    result = 0
+    for i in range(len(firstVector)):
+        result += firstVector[i] * secondVector[i]
+    return result
+
+# находим произведение матрицы на вектор
+def GetMatrixMultiply(matrix: List[List[float]], vector: List[float]) -> List[float]:   
+    result = vector.copy()
+    for i in range(len(vector)):
+        sum = 0
+        for j in range(len(matrix[0])):
+            sum += matrix[i][j] * vector[j]
+        result[i] = sum
+    return result

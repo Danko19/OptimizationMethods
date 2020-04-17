@@ -26,7 +26,7 @@ results.append((DirectcoordinateDescentMethod.FindMinimum(function, [-2, 8], 0.0
 results.append((DirectcoordinateDescentMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetPowellsMethodFunc(0.01, 0.01)), "Метод прямого покоординатного спуска (метод Пауэлла)"))
 results.append((NelderMeadMethod.FindMinimum(function, [-2, 8], 0.1, 0.1), "Метод Нелдера-Мида"))
 results.append((HookeJeevesMethod.FindMinimum(function, [-2, 8], 0.01, 0.01, OneDimensionalOptimizationsHelper.GetFibonacciMethodFunc(0.01)), "Метод Хука-Дживса (метод Фибоначчи)"))
-results.append((GradientDescentMethod.FindMinimum(function, gradient, [-2, 8], 0.01, 0.01, 0.01, OneDimensionalOptimizationsHelper.GetGoldenRatioMethodFunc(0.01)), "Метод наискорейшего градиентного спуска"))
+results.append((GradientDescentMethod.FindMinimum(function, gradient, [-2, 8], 0.01, 0.01, 0.01, H = [[1, 0], [0, 0.5]]), "Метод наискорейшего градиентного спуска"))
 results.append((FletcherReevesMethod.FindMinimum(function, gradient, [-2, 8], 0.01, 0.01, 0.01, [[1, 0], [0, 0.5]]), "Метод Флетчера-Ривса"))
 
 print()
